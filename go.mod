@@ -1,4 +1,6 @@
-module github.com/mrobinsn/go-newznab
+module github.com/lsnow/go-newznab
+
+go 1.16
 
 require (
 	github.com/pkg/errors v0.8.1
