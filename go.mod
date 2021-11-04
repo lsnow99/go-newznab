@@ -1,4 +1,4 @@
-module github.com/lsnow/go-newznab
+module github.com/lsnow99/go-newznab
 
 go 1.16
 
