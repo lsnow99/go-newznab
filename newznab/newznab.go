@@ -128,10 +128,9 @@ func (c Client) SearchWithQuery(categories []int, query string, searchType strin
 	})
 }
 
-// SearchWithQueryExtra returns NZBs for the given parameters, with an optional map of extra parameters
-func (c Client) SearchWithQueryExtra(categories []int, query string, searchType string, extraParams map[string][]string) ([]NZB, error) {
+// SearchWithParams returns NZBs for the given parameters, allowing the caller to specify a map for extra parameters
+func (c Client) SearchWithParams(categories []int, searchType string, extraParams map[string][]string) ([]NZB, error) {
 	params := url.Values{
-		"q":   []string{query},
 		"cat": c.splitCats(categories),
 		"t":   []string{searchType},
 	}
