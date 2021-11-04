@@ -128,6 +128,21 @@ func (c Client) SearchWithQuery(categories []int, query string, searchType strin
 	})
 }
 
+// SearchWithQueryExtra returns NZBs for the given parameters, with an optional map of extra parameters
+func (c Client) SearchWithQueryExtra(categories []int, query string, searchType string, extraParams map[string][]string) ([]NZB, error) {
+	params := url.Values{
+		"q":   []string{query},
+		"cat": c.splitCats(categories),
+		"t":   []string{searchType},
+	}
+	for key, vals := range extraParams {
+		for _, val := range vals {
+			params.Add(key, val)
+		}
+	}
+	return c.search(params)
+}
+
 // LoadRSSFeed returns up to <num> of the most recent NZBs of the given categories.
 func (c Client) LoadRSSFeed(categories []int, num int) ([]NZB, error) {
 	return c.rss(url.Values{
@@ -175,7 +190,7 @@ func (c Client) LoadRSSFeedUntilNZBID(categories []int, num int, id string, maxR
 // Details get the details of a particular nzb
 func (c Client) Details(guid string) (Details, error) {
 	return c.details(url.Values{
-		"t": []string{"details"},
+		"t":    []string{"details"},
 		"guid": []string{guid},
 	})
 }
